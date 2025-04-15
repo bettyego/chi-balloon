@@ -6,7 +6,7 @@ const Hero = () => {
       className="h-screen bg-cover bg-center flex items-center justify-center"
       style={{
         backgroundImage:
-          "url('src/assets/pexels-vidalbalielojrfotografia-14457430.jpg')",
+          "url('./src/assets/pexels-vidalbalielojrfotografia-14457430.jpg')",
       }}
     >
       <div className="text-center text-white bg-black/50 p-8 rounded-xl max-w-2xl">
