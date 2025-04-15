@@ -5,7 +5,7 @@ import Owners from './page/Owner'
 import ClientReviewSlider from './page/ClientReviewSlider'
 import LetsTalk from './page/LetsTalk'
 
-export const Home = () => {
+ const Home = () => {
   return (
     <div>
         <Hero />
@@ -16,3 +16,4 @@ export const Home = () => {
     </div>
   )
 }
+export default Home
