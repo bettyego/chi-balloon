@@ -13,7 +13,7 @@ const About = () => {
           transition={{ duration: 1.2 }}
         >
           <img
-            src="./src/assets/pexels-vidalbalielojrfotografia-14457430.jpg" 
+            src="/pexels-vidalbalielojrfotografia-14457430.jpg" 
             alt="Balloon setup"
             className="rounded-3xl shadow-xl w-full object-cover"
           />

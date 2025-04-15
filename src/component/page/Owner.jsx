@@ -27,7 +27,7 @@ const Owner = () => {
           viewport={{ once: true, amount: 0.3 }}
         >
           <img
-            src="./src/assets/owner.jpg"
+            src="/owner.jpg"
             alt="Chinyere Onuma Chukukere"
             className="rounded-2xl shadow-lg object-cover w-full h-auto"
           />

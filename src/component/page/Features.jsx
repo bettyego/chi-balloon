@@ -3,32 +3,32 @@ import { motion } from 'framer-motion';
 
 const features = [
   {
-    icon: './src/assets/evt.jpg',
+    icon: '/evt.jpg',
     title: 'Creative Balloon Installations',
     description: 'Unique balloon designs that bring your event to life with color, elegance, and creativity.',
   },
   {
-    icon: './src/assets/evt3.webp',
+    icon: '/evt3.webp',
     title: 'Customized Event Themes',
     description: 'From elegant weddings to fun birthdays — we craft the perfect theme tailored to your dream vision.',
   },
   {
-    icon: './src/assets/lx.jpg',
+    icon: '/lx.jpg',
     title: 'Luxury Decor & Styling',
     description: 'Combining stunning backdrops, centerpieces, and styling to elevate your special day.',
   },
   {
-    icon: './src/assets/bt1.jpg',
+    icon: '/bt1.jpg',
     title: 'Personalized Balloon Displays',
     description: 'Interactive displays that make your event memorable and enjoyable for all.',
   },
   {
-    icon: './src/assets/evt1.jpg',
+    icon: '/evt1.jpg',
     title: 'Event Planning & Coordination',
     description: 'We handle the details, so you can focus on creating unforgettable moments.',
   },
   {
-    icon: './src/assets/lx2.jpg',
+    icon: '/lx2.jpg',
     title: 'Balloon Art for Every Occasion',
     description: 'Whether it’s a wedding, birthday, or corporate event, we have the perfect balloon art for you.',
   },

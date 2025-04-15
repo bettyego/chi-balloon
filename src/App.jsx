@@ -10,18 +10,20 @@ import ContactUs from "./component/page/ContactUs";
 
 function App() {
   return (
-    <>
+    <> 
+
       <Routes>
         <Route path="/" element={<Layout />}>
         <Route path="/"  element={<Home />}/>
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/inquiryform" element={<InquiryForm />} />
-          <Route path="/review" element={<ClientReview />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/contact" element={<ContactUs />} />
+          <Route path="about" element={<About />} />
+          <Route path="services" element={<Services />} />
+          <Route path="inquiryform" element={<InquiryForm />} />
+          <Route path="review" element={<ClientReview />} />
+          <Route path="gallery" element={<Gallery />} />
+          <Route path="contact" element={<ContactUs />} />
         </Route>
       </Routes>
+
     </>
   );
 }
