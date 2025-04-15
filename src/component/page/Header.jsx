@@ -57,7 +57,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-black/90 backdrop-blur-sm px-4 py-6 space-y-4 text-white text-base font-medium">
+        <div className="md:hidden bg-black/90 backdrop-blur-sm px-4 py-6 space-y-4 text-pink-600 text-base font-medium">
           <Link to="/" onClick={toggleMobileMenu} className="block hover:text-pink-400">Home</Link>
           <Link to="/about" onClick={toggleMobileMenu} className="block hover:text-pink-400">About</Link>
           <Link to="/services" onClick={toggleMobileMenu} className="block hover:text-pink-400">Services</Link>
