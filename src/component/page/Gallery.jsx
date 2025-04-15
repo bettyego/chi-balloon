@@ -10,6 +10,7 @@ const galleryImages = [
   '/src/assets/lx2.jpg',
   './src/assets/lx.jpg',
   './src/assets/evt1.jpg',
+  '../../assets/evt1.jpg',
   
 ];
 
