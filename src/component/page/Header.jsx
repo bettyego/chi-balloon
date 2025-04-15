@@ -40,7 +40,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
-            <button onClick={toggleMobileMenu} className="text-white">
+            <button onClick={toggleMobileMenu} className="text-black">
               <svg
                 className="w-6 h-6"
                 fill="none"
