@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 
+
 const Header = () => {
   
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -51,13 +52,13 @@ const Header = () => {
       {isMobileMenuOpen && (
   <div className="md:hidden px-4 pb-4 bg-black/80 backdrop-blur-md text-white">
     <ul className="flex flex-col gap-4 text-lg">
-      <li><Link to="/" className="hover:text-pink-400">{t('home')}</Link></li>
-      <li><Link to="/about" className="hover:text-pink-400">{t('about')}</Link></li>
-      <li><Link to="/services" className="hover:text-pink-400">{t('services')}</Link></li>
-      <li><Link to="/inquiryform" className="hover:text-pink-400">{t('inquiry')}</Link></li>
-      <li><Link to="/review" className="hover:text-pink-400">{t('review')}</Link></li>
-      <li><Link to="/gallery" className="hover:text-pink-400">{t('gallery')}</Link></li>
-      <li><Link to="/contact" className="hover:text-pink-400">{t('contact')}</Link></li>
+    <Link to="/" className="hover:text-pink-400 transition">Home</Link>
+            <Link to="/about" className="hover:text-pink-400 transition">About</Link>
+            <Link to="/services" className="hover:text-pink-400 transition">Services</Link>
+            <Link to="/inquiryform" className="hover:text-pink-400 transition">InquiryForm</Link>
+            <Link to="/review" className="hover:text-pink-400 transition">ClientReview</Link>
+            <Link to="/gallery" className="hover:text-pink-400 transition">Gallery</Link>
+            <Link to="/contact" className="hover:text-pink-400 transition">Contact us</Link>
     </ul>
   </div>
 )}
