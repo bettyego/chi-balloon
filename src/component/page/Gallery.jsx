@@ -1,16 +1,16 @@
 import React from 'react';
 
 const galleryImages = [
-  '/src/assets/pexels-brunounreal-15117022.jpg',
-  '/src/assets/pexels-missy-mel-garza-476212078-15811476.jpg',
-  '/src/assets/pexels-mlkbnl-10651680.jpg',
+  './src/assets/pexels-brunounreal-15117022.jpg',
+  './src/assets/pexels-missy-mel-garza-476212078-15811476.jpg',
+  './src/assets/pexels-mlkbnl-10651680.jpg',
   '/src/assets/pexels-vidalbalielojrfotografia-14457430.jpg',
   '/src/assets/ps6.jpeg',
   '/src/assets/ps7.webp',
   '/src/assets/lx2.jpg',
   '/src/assets/lx.jpg',
   '/src/assets/evt1.jpg',
-  // Add more image paths as needed
+  
 ];
 
 const Gallery = () => {
