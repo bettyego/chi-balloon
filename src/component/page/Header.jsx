@@ -13,26 +13,26 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-3">
           {/* Logo */}
-          <div className="text-xl sm:text-2xl font-bold text-black">
+          <div className="text-xl sm:text-2xl font-bold text-pink-500">
             Chi's BalloonArt
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-5 lg:gap-8 text-base lg:text-lg text-black font-medium">
-            <Link to="/" className="hover:text-pink-500 transition">Home</Link>
-            <Link to="/about" className="hover:text-pink-500 transition">About</Link>
-            <Link to="/services" className="hover:text-pink-500 transition">Services</Link>
-            <Link to="/inquiryform" className="hover:text-pink-500 transition">Inquiry</Link>
-            <Link to="/review" className="hover:text-pink-500 transition">Reviews</Link>
-            <Link to="/gallery" className="hover:text-pink-500 transition">Gallery</Link>
-            <Link to="/contact" className="hover:text-pink-500 transition">Contact</Link>
+          <nav className="hidden md:flex gap-5 lg:gap-8 text-base lg:text-lg text-pink-500 font-medium">
+            <Link to="/" className="hover:text-red-500 transition">Home</Link>
+            <Link to="/about" className="hover:text-red-500 transition">About</Link>
+            <Link to="/services" className="hover:text-red-500 transition">Services</Link>
+            <Link to="/inquiryform" className="hover:text-red-500 transition">Inquiry</Link>
+            <Link to="/review" className="hover:text-red-500 transition">Reviews</Link>
+            <Link to="/gallery" className="hover:text-red-500 transition">Gallery</Link>
+            <Link to="/contact" className="hover:text-red-500 transition">Contact</Link>
           </nav>
 
           {/* Desktop Button */}
           <div className="hidden md:block">
             <Link
               to="/inquiryform"
-              className="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-500 transition duration-300 text-sm sm:text-base"
+              className="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-purpltext-red-500 transition duration-300 text-sm sm:text-base"
             >
               Book Now
             </Link>
