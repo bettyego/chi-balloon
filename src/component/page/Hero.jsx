@@ -5,28 +5,82 @@ import { useSwipeable } from 'react-swipeable';
 
 const slides = [
   {
-    image: '/pexels-vidalbalielojrfotografia-14457430.jpg',
+    image: '/chi43.jpg',
     title: 'Celebrate in Style',
     text: 'Transform your events with balloon magic, elegance, and flair.',
     align: 'center',
   },
   {
-    image: '/ps1.jpeg',
+    image: '/chi4.jpg',
     title: 'Luxury Balloon Installations',
     text: 'From weddings to baby showers, we craft wow-worthy setups.',
     align: 'left',
   },
   {
-    image: '/pexels-natalie-bond-320378-3371098.jpg',
+    image: '/chi5.jpg',
     title: 'Every Detail Matters',
     text: 'We design each piece to reflect your vision & vibe.',
     align: 'right',
   },
   {
-    image: '/evt1.jpg',
+    image: '/chi41.jpg',
     title: 'Let’s Make Memories',
     text: 'Your event deserves unforgettable moments — we deliver them.',
     align: 'center',
+  },
+  {
+    image: '/chi9.jpg',
+    title: 'Let’s Make Magic',
+    text: 'Your event deserves unforgettable magic touch — we are always ready.',
+    align: 'center',
+  },
+  {
+    image: '/chi10.jpg',
+    title: 'Unmatched Creativity',
+    text: 'Our team is dedicated to bringing unique, creative ideas to life for your special day.',
+    align: 'left',
+  },
+  {
+    image: '/chi11.jpg',
+    title: 'Exquisite Designs',
+    text: 'Every arrangement is carefully crafted with luxury and elegance in mind.',
+    align: 'right',
+  },
+  {
+    image: '/chi14.jpg',
+    title: 'Your Dream Event Awaits',
+    text: 'From balloons to decor, we create an atmosphere that matches your dream event.',
+    align: 'center',
+  },
+  {
+    image: '/chi22.jpg',
+    title: 'Personalized Touch',
+    text: 'We add the personal touch that makes every moment at your event stand out.',
+    align: 'left',
+  },
+  {
+    image: '/chi27.jpg',
+    title: 'Timeless Elegance',
+    text: 'Our designs are created with timeless beauty to ensure your event is stunning now and forever.',
+    align: 'right',
+  },
+  {
+    image: '/chi28.jpg',
+    title: 'Every Moment Counts',
+    text: 'We focus on the smallest details that create lasting memories for you and your guests.',
+    align: 'center',
+  },
+  {
+    image: '/chi33.jpg',
+    title: 'Transforming Spaces',
+    text: 'From ordinary to extraordinary — we elevate every space to match your event’s vibe.',
+    align: 'left',
+  },
+  {
+    image: '/chi34.jpg',
+    title: 'A Vision Come to Life',
+    text: 'Watch your vision unfold through our hands-on, detail-oriented event designs.',
+    align: 'right',
   },
 ];
 
@@ -65,14 +119,12 @@ const Hero = () => {
           className="absolute inset-0 z-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${slides[index].image})` }}
         >
-          {/* Reduced opacity gradient, no blur */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/20 to-transparent z-10" />
-          
-          {/* Text content container */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent z-10" />
+
           <div
             className={`relative z-20 h-full flex flex-col justify-center px-6 sm:px-10 md:px-20 ${getAlignment(
               slides[index].align
-            )} bg-black/10 sm:bg-black/20 md:bg-transparent`}
+            )}`}
           >
             <motion.h1
               initial={{ y: 30, opacity: 0 }}
@@ -99,7 +151,7 @@ const Hero = () => {
               className="mt-6"
             >
               <Link to="/inquiryform">
-                <button className="px-7 py-3 bg-pink-600 hover:bg-pink-500 text-white rounded-full text-base font-semibold shadow-lg transition duration-300">
+                <button className="px-7 py-3 bg-[#b8860b] hover:bg-green-800 text-white rounded-full text-base font-semibold shadow-lg transition duration-300">
                   Let’s Create Magic
                 </button>
               </Link>

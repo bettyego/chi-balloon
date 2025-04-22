@@ -24,7 +24,7 @@ const InquiryForm = () => {
   });
 
   const [showSuccess, setShowSuccess] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // To track if form is submitting
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Country select options (using react-select-country-list)
   const countries = countryList().getData();
@@ -104,8 +104,8 @@ const InquiryForm = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-pink-50 shadow-lg rounded-lg mt-14">
-      <h2 className="text-3xl font-semibold text-center text-pink-600 mb-8">Event Inquiry Form</h2>
+    <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg mt-14">
+      <h2 className="text-3xl font-semibold text-center text-green-700 mb-8">Event Inquiry Form</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name and Email */}
@@ -117,7 +117,7 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="First Name"
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             />
           </div>
           <div className="col-span-1">
@@ -127,7 +127,7 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="Last Name"
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             />
           </div>
         </div>
@@ -141,7 +141,7 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="Email"
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             />
           </div>
           <div className="col-span-1">
@@ -151,7 +151,7 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="Phone Number"
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             />
           </div>
         </div>
@@ -170,7 +170,7 @@ const InquiryForm = () => {
             value={formData.eventType}
             onChange={handleChange}
             required
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
           >
             <option value="">Select Event Type</option>
             {eventTypes.map((type, idx) => (
@@ -184,7 +184,7 @@ const InquiryForm = () => {
           <label className="block text-sm font-medium text-gray-700">Services Interested In</label>
           <Select
             isMulti
-            options={serviceOptions.map(option => ({ value: option, label: option }))}
+            options={serviceOptions.map(option => ({ value: option, label: option }))} 
             onChange={handleMultiSelect}
             value={formData.services.map(service => ({ value: service, label: service }))}
           />
@@ -199,7 +199,7 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="Venue Name"
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             />
           </div>
           <div className="col-span-1">
@@ -209,7 +209,7 @@ const InquiryForm = () => {
               value={formData.eventDate}
               onChange={handleChange}
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             />
           </div>
         </div>
@@ -222,7 +222,7 @@ const InquiryForm = () => {
               value={formData.guestCount}
               onChange={handleChange}
               placeholder="Guest Count"
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             />
           </div>
           <div className="col-span-1">
@@ -232,7 +232,7 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="Event Vision (Optional)"
               rows="4"
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             />
           </div>
         </div>
@@ -245,7 +245,7 @@ const InquiryForm = () => {
               value={formData.budget}
               onChange={handleChange}
               placeholder="Decor Budget"
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             />
           </div>
           <div className="col-span-1">
@@ -254,7 +254,7 @@ const InquiryForm = () => {
               value={formData.planner}
               onChange={handleChange}
               placeholder="Planner Name"
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             />
           </div>
         </div>
@@ -266,7 +266,7 @@ const InquiryForm = () => {
             name="consultation"
             value={formData.consultation}
             onChange={handleChange}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
           >
             <option value="">Select</option>
             <option value="Yes">Yes</option>
@@ -281,7 +281,7 @@ const InquiryForm = () => {
             type="checkbox"
             checked={formData.pricingGuide}
             onChange={handleChange}
-            className="w-4 h-4 text-pink-600"
+            className="w-4 h-4 text-green-600"
           />
         </div>
 
@@ -293,7 +293,7 @@ const InquiryForm = () => {
             value={formData.referral}
             onChange={handleChange}
             placeholder="Referral Source"
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
           />
         </div>
 
@@ -301,7 +301,7 @@ const InquiryForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`px-8 py-3 mt-6 rounded-full text-white bg-pink-600 hover:bg-pink-700 transition disabled:opacity-50`}
+            className={`px-8 py-3 mt-6 rounded-full text-white bg-[#d4af37] hover:bg-[#d4af37] transition disabled:opacity-50`}
           >
             {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>

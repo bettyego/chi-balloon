@@ -61,9 +61,9 @@ const reviews = [
 
 const ClientReviewSlider = () => {
   return (
-    <section className="bg-pink-50 py-12 px-4">
+    <section className="bg-green-50 py-12 px-4">
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-pink-600 mb-6">What Our Clients Say</h2>
+        <h2 className="text-3xl font-bold text-green-700 mb-6">What Our Clients Say</h2>
 
         <Swiper
           modules={[Autoplay, Pagination]}
@@ -76,9 +76,9 @@ const ClientReviewSlider = () => {
           {reviews.map((review) => (
             <SwiperSlide key={review.id}>
               <div className="bg-white p-6 rounded-xl shadow-md max-w-3xl mx-auto">
-                <FaQuoteLeft className="text-pink-400 text-3xl mb-4 mx-auto" />
+                <FaQuoteLeft className="text-yellow-500 text-3xl mb-4 mx-auto" />
                 <p className="text-gray-700 text-lg italic mb-4">"{review.content}"</p>
-                <p className="text-pink-600 font-semibold">- {review.author}</p>
+                <p className="text-green-700 font-semibold">- {review.author}</p>
               </div>
             </SwiperSlide>
           ))}

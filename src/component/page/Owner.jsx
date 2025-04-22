@@ -16,7 +16,7 @@ const paragraphVariants = {
 
 const Owner = () => {
   return (
-    <section className="bg-pink-50 py-16 px-6">
+    <section className="bg-green-50 py-16 px-6">
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
         
         {/* Animated Image */}
@@ -27,7 +27,7 @@ const Owner = () => {
           viewport={{ once: true, amount: 0.3 }}
         >
           <img
-            src="/owner.jpg"
+            src="/chi23.jpg"
             alt="Chinyere Onuma Chukukere"
             className="rounded-2xl shadow-lg object-cover w-full h-auto"
           />
@@ -40,7 +40,7 @@ const Owner = () => {
           viewport={{ once: true, amount: 0.3 }}
         >
           <motion.h2
-            className="text-4xl font-bold text-gray-800 mb-4"
+            className="text-4xl font-bold text-green-900 mb-4"
             variants={paragraphVariants}
             custom={0}
           >
@@ -48,17 +48,17 @@ const Owner = () => {
           </motion.h2>
 
           <motion.p
-            className="text-gray-700 mb-4 text-lg"
+            className="text-gray-800 mb-4 text-lg"
             variants={paragraphVariants}
             custom={1}
           >
-            <strong>Chinyere Onuma Chukukere</strong> is the heart and creative mind behind our balloon decoration business.
+            <strong className="text-green-800">Chinyere Onuma Chukukere</strong> is the heart and creative mind behind our balloon decoration business.
             A passionate designer and visionary, Chinyere turned her love for art, color, and celebration into a successful
             business that has brought joy to countless events.
           </motion.p>
 
           <motion.p
-            className="text-gray-700 mb-4 text-lg"
+            className="text-gray-800 mb-4 text-lg"
             variants={paragraphVariants}
             custom={2}
           >
@@ -67,17 +67,17 @@ const Owner = () => {
           </motion.p>
 
           <motion.p
-            className="text-gray-700 mb-4 text-lg"
+            className="text-gray-800 mb-4 text-lg"
             variants={paragraphVariants}
             custom={3}
           >
-            Since launching the business <strong>over [insert years] years ago</strong>, Chinyere has built a reputation for excellence,
+            Since launching the business <strong className="text-gold-600">over [insert years] years ago</strong>, Chinyere has built a reputation for excellence,
             transforming ordinary spaces into unforgettable experiences. Her commitment to detail and customer satisfaction
             has made her a beloved name in the event decoration scene.
           </motion.p>
 
           <motion.p
-            className="text-pink-600 font-semibold text-lg"
+            className="text-gold-700 font-semibold italic text-lg"
             variants={paragraphVariants}
             custom={4}
           >
