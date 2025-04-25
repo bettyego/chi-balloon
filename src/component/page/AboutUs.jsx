@@ -68,17 +68,17 @@ const AboutUs = () => {
           slidesPerView={1}
           navigation
           pagination={{ clickable: true }}
-          className="w-full h-[60vh] rounded-xl overflow-hidden shadow-2xl border border-[#b8860b]"
+          className="w-full h-screen rounded-xl overflow-hidden shadow-2xl border border-[#b8860b]"
         >
           {videoData[activeCategory].map((videoUrl, index) => (
             <SwiperSlide key={index}>
-              <div className="w-full h-full">
+              <div className="w-full h-full ">
                 <iframe
                   src={videoUrl}
                   title={`Video ${index + 1}`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  className="w-full h-full"
+                  className="w-full h-full "
                 />
               </div>
             </SwiperSlide>

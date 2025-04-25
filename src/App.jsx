@@ -20,7 +20,7 @@ function App() {
           <Route path="inquiryform" element={<InquiryForm />} />
           <Route path="review" element={<ClientReview />} />
           <Route path="gallery" element={<Gallery />} />
-          <Route path="/contact" element={<ContactUs />} />
+          <Route path="contact" element={<ContactUs />} />
         </Route>
       </Routes>
 
