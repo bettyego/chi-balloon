@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./component/page/Layout";
 import Home from "./component/Home";
-import AboutUs from "./component/page/AboutUs"; // ✅ Capital "U"
+import AboutUs from "./component/page/AboutUs"; 
 import Services from "./component/page/Services";
 import InquiryForm from "./component/page/InquiryForm";
 import ClientReview from "./component/page/ClientReview";
