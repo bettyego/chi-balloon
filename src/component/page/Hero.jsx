@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSwipeable } from 'react-swipeable';
@@ -84,46 +84,60 @@ const slides = [
   },
 ];
 
-const Hero = () => {
+const Hero = React.memo(() => {
   const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
-    }, 6000);
-    return () => clearInterval(interval);
+  // Memoize navigation functions
+  const nextSlide = useCallback(() => {
+    setIndex((prev) => (prev + 1) % slides.length);
   }, []);
 
+  const prevSlide = useCallback(() => {
+    setIndex((prev) => (prev - 1 + slides.length) % slides.length);
+  }, []);
+
+  const goToSlide = useCallback((slideIndex) => {
+    setIndex(slideIndex);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 6000);
+    return () => clearInterval(interval);
+  }, [nextSlide]);
+
   const handlers = useSwipeable({
-    onSwipedLeft: () => setIndex((prev) => (prev + 1) % slides.length),
-    onSwipedRight: () => setIndex((prev) => (prev - 1 + slides.length) % slides.length),
+    onSwipedLeft: nextSlide,
+    onSwipedRight: prevSlide,
     preventScrollOnSwipe: true,
     trackMouse: true,
   });
 
-  const getAlignment = (align) => {
+  const getAlignment = useCallback((align) => {
     if (align === 'left') return 'items-start text-left';
     if (align === 'right') return 'items-end text-right';
     return 'items-center text-center';
-  };
+  }, []);
+
+  // Memoize current slide data
+  const currentSlide = useMemo(() => slides[index], [index]);
 
   return (
     <section {...handlers} className="relative h-screen w-full overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
-          key={slides[index].image}
+          key={currentSlide.image}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 1.2, ease: 'easeInOut' }}
           className="absolute inset-0 z-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${slides[index].image})` }}
+          style={{ backgroundImage: `url(${currentSlide.image})` }}
         >
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent z-10" />
 
           <div
             className={`relative z-20 h-full flex flex-col justify-center px-6 sm:px-10 md:px-20 ${getAlignment(
-              slides[index].align
+              currentSlide.align
             )}`}
           >
             <motion.h1
@@ -132,7 +146,7 @@ const Hero = () => {
               transition={{ delay: 0.3 }}
               className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight max-w-3xl drop-shadow-xl"
             >
-              {slides[index].title}
+              {currentSlide.title}
             </motion.h1>
 
             <motion.p
@@ -141,7 +155,7 @@ const Hero = () => {
               transition={{ delay: 0.6 }}
               className="text-lg sm:text-xl text-gray-200 mt-4 max-w-xl drop-shadow-md"
             >
-              {slides[index].text}
+              {currentSlide.text}
             </motion.p>
 
             <motion.div
@@ -165,7 +179,7 @@ const Hero = () => {
         {slides.map((_, i) => (
           <button
             key={i}
-            onClick={() => setIndex(i)}
+            onClick={() => goToSlide(i)}
             className={`w-3 h-3 rounded-full ${
               i === index ? 'bg-white' : 'bg-white/40'
             } transition duration-300`}
@@ -174,6 +188,6 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Hero;

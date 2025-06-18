@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
+import { sanitizeFormData, formSubmissionLimiter } from '../../utils/sanitize';
 
 const InquiryForm = () => {
   const [formData, setFormData] = useState({
@@ -25,6 +26,7 @@ const InquiryForm = () => {
 
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
 
   // Country select options (using react-select-country-list)
   const countries = countryList().getData();
@@ -48,6 +50,51 @@ const InquiryForm = () => {
     'Rentals'
   ];
 
+  // Validation function
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    }
+
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    }
+
+    if (!formData.eventType) {
+      newErrors.eventType = 'Event type is required';
+    }
+
+    if (!formData.venue.trim()) {
+      newErrors.venue = 'Venue is required';
+    }
+
+    if (!formData.eventDate) {
+      newErrors.eventDate = 'Event date is required';
+    } else {
+      const selectedDate = new Date(formData.eventDate);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (selectedDate < today) {
+        newErrors.eventDate = 'Event date cannot be in the past';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -55,6 +102,14 @@ const InquiryForm = () => {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
+
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   };
 
   // Handle multi-select for services
@@ -70,12 +125,36 @@ const InquiryForm = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    // Rate limiting check
+    const userIdentifier = formData.email || 'anonymous';
+    if (!formSubmissionLimiter.isAllowed(userIdentifier)) {
+      const remainingTime = Math.ceil(formSubmissionLimiter.getRemainingTime(userIdentifier) / 60000);
+      alert(`Too many submission attempts. Please wait ${remainingTime} minutes before trying again.`);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
+      // Sanitize form data before sending
+      const sanitizedData = sanitizeFormData(formData);
+
       // Send data via EmailJS
-      await emailjs.send('your_service_id', 'your_template_id', formData, 'your_user_id');
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID || 'your_service_id',
+        process.env.REACT_APP_EMAILJS_INQUIRY_TEMPLATE_ID || 'your_template_id',
+        sanitizedData,
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'your_public_key'
+      );
       setShowSuccess(true);
+
+      // Hide success message after 5 seconds
+      setTimeout(() => setShowSuccess(false), 5000);
       // Clear form data
       setFormData({
         firstName: '',
@@ -117,8 +196,11 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="First Name"
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+              className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 ${
+                errors.firstName ? 'border-red-500' : ''
+              }`}
             />
+            {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
           </div>
           <div className="col-span-1">
             <input
@@ -127,8 +209,11 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="Last Name"
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+              className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 ${
+                errors.lastName ? 'border-red-500' : ''
+              }`}
             />
+            {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
           </div>
         </div>
 
@@ -141,8 +226,11 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="Email"
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+              className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 ${
+                errors.email ? 'border-red-500' : ''
+              }`}
             />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
           <div className="col-span-1">
             <input
@@ -151,8 +239,11 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="Phone Number"
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+              className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 ${
+                errors.phone ? 'border-red-500' : ''
+              }`}
             />
+            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
           </div>
         </div>
 
@@ -170,13 +261,16 @@ const InquiryForm = () => {
             value={formData.eventType}
             onChange={handleChange}
             required
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 ${
+              errors.eventType ? 'border-red-500' : ''
+            }`}
           >
             <option value="">Select Event Type</option>
             {eventTypes.map((type, idx) => (
               <option key={idx} value={type}>{type}</option>
             ))}
           </select>
+          {errors.eventType && <p className="text-red-500 text-sm mt-1">{errors.eventType}</p>}
         </div>
 
         {/* Services Multi-Select */}
@@ -199,8 +293,11 @@ const InquiryForm = () => {
               onChange={handleChange}
               placeholder="Venue Name"
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+              className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 ${
+                errors.venue ? 'border-red-500' : ''
+              }`}
             />
+            {errors.venue && <p className="text-red-500 text-sm mt-1">{errors.venue}</p>}
           </div>
           <div className="col-span-1">
             <input
@@ -209,8 +306,11 @@ const InquiryForm = () => {
               value={formData.eventDate}
               onChange={handleChange}
               required
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+              className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 ${
+                errors.eventDate ? 'border-red-500' : ''
+              }`}
             />
+            {errors.eventDate && <p className="text-red-500 text-sm mt-1">{errors.eventDate}</p>}
           </div>
         </div>
 
