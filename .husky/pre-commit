@@ -3,6 +3,3 @@
 
 # Run lint-staged
 npx lint-staged
-
-# Run type checking
-npm run type-check

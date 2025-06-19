@@ -2,30 +2,10 @@
  * Google Analytics 4 integration utilities
  */
 
-declare global {
-  interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: any[];
-  }
-}
-
-interface AnalyticsEvent {
-  action: string;
-  category: string;
-  label?: string;
-  value?: number;
-}
-
-interface PageViewEvent {
-  page_title: string;
-  page_location: string;
-  page_path: string;
-}
-
 /**
  * Initialize Google Analytics
  */
-export const initializeAnalytics = (): void => {
+export const initializeAnalytics = () => {
   const trackingId = process.env.REACT_APP_GA_TRACKING_ID;
   
   if (!trackingId || process.env.NODE_ENV !== 'production') {
@@ -58,13 +38,13 @@ export const initializeAnalytics = (): void => {
 /**
  * Track page views
  */
-export const trackPageView = (path: string, title?: string): void => {
+export const trackPageView = (path, title) => {
   if (typeof window.gtag !== 'function') {
     console.log('Analytics not available for page view:', path);
     return;
   }
 
-  const pageViewData: PageViewEvent = {
+  const pageViewData = {
     page_title: title || document.title,
     page_location: window.location.href,
     page_path: path,
@@ -77,7 +57,7 @@ export const trackPageView = (path: string, title?: string): void => {
 /**
  * Track custom events
  */
-export const trackEvent = ({ action, category, label, value }: AnalyticsEvent): void => {
+export const trackEvent = ({ action, category, label, value }) => {
   if (typeof window.gtag !== 'function') {
     console.log('Analytics not available for event:', action);
     return;
@@ -95,7 +75,7 @@ export const trackEvent = ({ action, category, label, value }: AnalyticsEvent): 
 /**
  * Track form submissions
  */
-export const trackFormSubmission = (formName: string, success: boolean = true): void => {
+export const trackFormSubmission = (formName, success = true) => {
   trackEvent({
     action: success ? 'form_submit_success' : 'form_submit_error',
     category: 'engagement',
@@ -106,7 +86,7 @@ export const trackFormSubmission = (formName: string, success: boolean = true): 
 /**
  * Track button clicks
  */
-export const trackButtonClick = (buttonName: string, location?: string): void => {
+export const trackButtonClick = (buttonName, location) => {
   trackEvent({
     action: 'button_click',
     category: 'engagement',
@@ -117,7 +97,7 @@ export const trackButtonClick = (buttonName: string, location?: string): void =>
 /**
  * Track gallery interactions
  */
-export const trackGalleryInteraction = (action: string, category: string): void => {
+export const trackGalleryInteraction = (action, category) => {
   trackEvent({
     action: `gallery_${action}`,
     category: 'engagement',
@@ -128,7 +108,7 @@ export const trackGalleryInteraction = (action: string, category: string): void 
 /**
  * Track service inquiries
  */
-export const trackServiceInquiry = (serviceType: string, eventType?: string): void => {
+export const trackServiceInquiry = (serviceType, eventType) => {
   trackEvent({
     action: 'service_inquiry',
     category: 'conversion',
@@ -139,7 +119,7 @@ export const trackServiceInquiry = (serviceType: string, eventType?: string): vo
 /**
  * Track contact attempts
  */
-export const trackContactAttempt = (method: string): void => {
+export const trackContactAttempt = (method) => {
   trackEvent({
     action: 'contact_attempt',
     category: 'conversion',
@@ -150,7 +130,7 @@ export const trackContactAttempt = (method: string): void => {
 /**
  * Track scroll depth
  */
-export const trackScrollDepth = (percentage: number): void => {
+export const trackScrollDepth = (percentage) => {
   trackEvent({
     action: 'scroll_depth',
     category: 'engagement',
@@ -162,7 +142,7 @@ export const trackScrollDepth = (percentage: number): void => {
 /**
  * Track file downloads
  */
-export const trackFileDownload = (fileName: string, fileType: string): void => {
+export const trackFileDownload = (fileName, fileType) => {
   trackEvent({
     action: 'file_download',
     category: 'engagement',
@@ -173,7 +153,7 @@ export const trackFileDownload = (fileName: string, fileType: string): void => {
 /**
  * Track external link clicks
  */
-export const trackExternalLink = (url: string, linkText?: string): void => {
+export const trackExternalLink = (url, linkText) => {
   trackEvent({
     action: 'external_link_click',
     category: 'engagement',
@@ -184,7 +164,7 @@ export const trackExternalLink = (url: string, linkText?: string): void => {
 /**
  * Track search queries (if search functionality is added)
  */
-export const trackSearch = (query: string, results: number): void => {
+export const trackSearch = (query, results) => {
   trackEvent({
     action: 'search',
     category: 'engagement',
@@ -196,7 +176,7 @@ export const trackSearch = (query: string, results: number): void => {
 /**
  * Track user timing (performance metrics)
  */
-export const trackTiming = (name: string, value: number, category: string = 'performance'): void => {
+export const trackTiming = (name, value, category = 'performance') => {
   if (typeof window.gtag !== 'function') return;
 
   window.gtag('event', 'timing_complete', {
@@ -209,7 +189,7 @@ export const trackTiming = (name: string, value: number, category: string = 'per
 /**
  * Track exceptions/errors
  */
-export const trackException = (description: string, fatal: boolean = false): void => {
+export const trackException = (description, fatal = false) => {
   if (typeof window.gtag !== 'function') return;
 
   window.gtag('event', 'exception', {
@@ -221,7 +201,7 @@ export const trackException = (description: string, fatal: boolean = false): voi
 /**
  * Set user properties
  */
-export const setUserProperty = (property: string, value: string): void => {
+export const setUserProperty = (property, value) => {
   if (typeof window.gtag !== 'function') return;
 
   window.gtag('config', process.env.REACT_APP_GA_TRACKING_ID, {

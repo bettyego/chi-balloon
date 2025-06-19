@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { sanitizeFormData, formSubmissionLimiter } from '../../utils/sanitize';
 import { optimizeFormForMobile } from '../../utils/touchUtils';
-import { trackFormSubmission, trackContactAttempt } from '../../utils/analytics';
+// import { trackFormSubmission, trackContactAttempt } from '../../utils/analytics';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -97,8 +97,8 @@ const ContactUs = () => {
       setFormData({ name: '', email: '', phone: '', message: '' });
 
       // Track successful form submission
-      trackFormSubmission('contact_form', true);
-      trackContactAttempt('contact_form');
+      // trackFormSubmission('contact_form', true);
+      // trackContactAttempt('contact_form');
 
       // Hide success message after 5 seconds
       setTimeout(() => setShowSuccess(false), 5000);
@@ -108,7 +108,7 @@ const ContactUs = () => {
       alert('There was an error sending your message. Please try again.');
 
       // Track failed form submission
-      trackFormSubmission('contact_form', false);
+      // trackFormSubmission('contact_form', false);
     }
 
     setIsSubmitting(false);

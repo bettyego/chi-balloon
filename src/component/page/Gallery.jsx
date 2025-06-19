@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import OptimizedImage from '../ui/OptimizedImage';
+// import OptimizedImage from '../ui/OptimizedImage';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -62,13 +62,10 @@ const Gallery = React.memo(() => {
           {galleryData[activeCategory].map((img, index) => (
             <SwiperSlide key={index}>
               <div className="overflow-hidden rounded-3xl shadow-xl border border-[#b8860b] bg-white">
-                <OptimizedImage
+                <img
                   src={img}
                   alt={`${activeCategory} ${index + 1}`}
                   className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500"
-                  width={400}
-                  height={320}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
               </div>
             </SwiperSlide>

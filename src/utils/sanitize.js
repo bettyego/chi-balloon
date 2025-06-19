@@ -5,7 +5,7 @@
 /**
  * Sanitize text input by removing potentially dangerous characters
  */
-export const sanitizeText = (input: string): string => {
+export const sanitizeText = (input) => {
   if (typeof input !== 'string') return '';
   
   return input

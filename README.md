@@ -91,7 +91,7 @@ src/
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Run ESLint with auto-fix
 - `npm run format` - Format code with Prettier
-- `npm run type-check` - Run TypeScript type checking
+- `npm run type-check` - Check for JavaScript syntax (placeholder)
 
 ### Testing
 - `npm test` - Run unit tests in watch mode
@@ -169,8 +169,8 @@ The project uses a custom color palette:
 ### Images
 Add your images to the `public/` directory and update the gallery data in the respective components.
 
-### TypeScript
-The project is fully typed with TypeScript for better developer experience and code safety.
+### JavaScript
+The project uses modern JavaScript (ES6+) with comprehensive JSDoc comments for better developer experience.
 
 ## 🚀 Deployment
 
