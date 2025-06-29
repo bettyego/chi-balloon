@@ -25,7 +25,8 @@
     "health-check": "npm run lint && npm run test:run && npm run build",
     "start": "npm run dev",
     "serve": "npm run preview",
-    "validate": "npm run lint && npm run type-check && npm run test:run"
+    "validate": "npm run lint && npm run type-check && npm run test:run",
+    "prepare": "echo 'No prepare script needed'"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
