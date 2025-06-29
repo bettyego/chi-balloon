@@ -1,5 +1,5 @@
 {
-  "name": "chi-ballon",
+  "name": "pinch-of-luxe-events",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -21,7 +21,11 @@
     "analyze": "npm run build && npx vite-bundle-analyzer dist",
     "clean": "rm -rf dist node_modules/.vite",
     "type-check": "echo 'TypeScript not configured - using JavaScript'",
-    "audit-fix": "npm audit fix"
+    "audit-fix": "npm audit fix",
+    "health-check": "npm run lint && npm run test:run && npm run build",
+    "start": "npm run dev",
+    "serve": "npm run preview",
+    "validate": "npm run lint && npm run type-check && npm run test:run"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

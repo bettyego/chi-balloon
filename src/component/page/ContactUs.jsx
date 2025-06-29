@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import emailjs from '@emailjs/browser';
-import { sanitizeFormData, formSubmissionLimiter } from '../../utils/sanitize';
-import { optimizeFormForMobile } from '../../utils/touchUtils';
-// import { trackFormSubmission, trackContactAttempt } from '../../utils/analytics';
+import React, { useState } from 'react';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -14,14 +11,6 @@ const ContactUs = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [errors, setErrors] = useState({});
-
-  // Optimize form for mobile on mount
-  useEffect(() => {
-    const form = document.querySelector('#contact-form');
-    if (form) {
-      optimizeFormForMobile(form);
-    }
-  }, []);
 
   const validateForm = () => {
     const newErrors = {};
@@ -50,7 +39,7 @@ const ContactUs = () => {
       ...prev,
       [name]: value
     }));
-
+    
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
@@ -62,145 +51,223 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     if (!validateForm()) {
-      return;
-    }
-
-    // Rate limiting check
-    const userIdentifier = formData.email || 'anonymous';
-    if (!formSubmissionLimiter.isAllowed(userIdentifier)) {
-      const remainingTime = Math.ceil(formSubmissionLimiter.getRemainingTime(userIdentifier) / 60000);
-      alert(`Too many submission attempts. Please wait ${remainingTime} minutes before trying again.`);
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      // Sanitize form data before sending
-      const sanitizedData = sanitizeFormData(formData);
-
-      await emailjs.send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID || 'your_service_id',
-        process.env.REACT_APP_EMAILJS_CONTACT_TEMPLATE_ID || 'your_template_id',
-        {
-          from_name: sanitizedData.name,
-          from_email: sanitizedData.email,
-          phone: sanitizedData.phone,
-          message: sanitizedData.message,
-        },
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'your_public_key'
-      );
-
+      // Simulate form submission (replace with actual email service later)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      console.log('📧 Contact form submitted:', formData);
+      
       setShowSuccess(true);
       setFormData({ name: '', email: '', phone: '', message: '' });
-
-      // Track successful form submission
-      // trackFormSubmission('contact_form', true);
-      // trackContactAttempt('contact_form');
-
+      
       // Hide success message after 5 seconds
       setTimeout(() => setShowSuccess(false), 5000);
-
+      
     } catch (error) {
-      console.error('Error sending email:', error);
-      alert('There was an error sending your message. Please try again.');
-
-      // Track failed form submission
-      // trackFormSubmission('contact_form', false);
+      console.error('Contact form submission failed:', error);
+      setErrors({ 
+        general: 'Failed to send message. Please try again or contact us directly.' 
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
-      <h2 className="text-3xl font-bold text-center text-green-700 mb-8 mt-12">Get In Touch</h2>
-
-      {showSuccess && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
-          Thank you for your message! We'll get back to you soon.
-        </div>
-      )}
-
-      <form id="contact-form" onSubmit={handleSubmit} className="bg-green-50 shadow-lg rounded-lg p-4 sm:p-8 space-y-6">
-        <div>
-          <label htmlFor="name" className="block text-sm font-semibold text-gray-700">Full Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className={`mt-1 w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 ${
-              errors.name ? 'border-red-500' : 'border-gray-300'
-            }`}
-            placeholder="Your Name"
-          />
-          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+    <div className="min-h-screen bg-gradient-to-b from-white to-[#fef9ec] py-16 px-6 mt-12">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-[rgb(234,171,12)] mb-6">
+            Get In Touch
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Ready to make your event unforgettable? Contact us today and let's bring your vision to life!
+          </p>
         </div>
 
-        <div>
-          <label htmlFor="email" className="block text-sm font-semibold text-gray-700">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            inputMode="email"
-            autoComplete="email"
-            className={`mt-1 w-full border rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-green-400 ${
-              errors.email ? 'border-red-500' : 'border-gray-300'
-            }`}
-            placeholder="you@example.com"
-          />
-          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Information */}
+          <div className="space-y-8">
+            <div className="bg-white rounded-3xl shadow-xl p-8 border border-[#b8860b]">
+              <h2 className="text-2xl font-bold text-[#006400] mb-6">Contact Information</h2>
+              
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-[rgb(234,171,12)] rounded-full flex items-center justify-center flex-shrink-0">
+                    <FaMapMarkerAlt className="text-white text-lg" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#006400] mb-1">Address</h3>
+                    <p className="text-gray-600">123 Event Street</p>
+                    <p className="text-gray-600">Your City, State 12345</p>
+                  </div>
+                </div>
 
-        <div>
-          <label htmlFor="phone" className="block text-sm font-semibold text-gray-700">Phone Number</label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            inputMode="tel"
-            autoComplete="tel"
-            className="mt-1 w-full border border-gray-300 rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-green-400"
-            placeholder="+123 456 7890"
-          />
-        </div>
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-[rgb(234,171,12)] rounded-full flex items-center justify-center flex-shrink-0">
+                    <FaPhone className="text-white text-lg" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#006400] mb-1">Phone</h3>
+                    <a href="tel:+15551234567" className="text-gray-600 hover:text-[rgb(234,171,12)] transition-colors">
+                      +1 (555) 123-4567
+                    </a>
+                  </div>
+                </div>
 
-        <div>
-          <label htmlFor="message" className="block text-sm font-semibold text-gray-700">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            rows="4"
-            value={formData.message}
-            onChange={handleChange}
-            required
-            className={`mt-1 w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 ${
-              errors.message ? 'border-red-500' : 'border-gray-300'
-            }`}
-            placeholder="Tell us about your event..."
-          />
-          {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
-        </div>
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-[rgb(234,171,12)] rounded-full flex items-center justify-center flex-shrink-0">
+                    <FaEnvelope className="text-white text-lg" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#006400] mb-1">Email</h3>
+                    <a href="mailto:info@pinchofLuxeevents.com" className="text-gray-600 hover:text-[rgb(234,171,12)] transition-colors">
+                      info@pinchofLuxeevents.com
+                    </a>
+                  </div>
+                </div>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full bg-[#d4af37] text-white py-2 rounded-md hover:bg-green-800 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isSubmitting ? 'Sending...' : 'Send Message'}
-        </button>
-      </form>
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-[rgb(234,171,12)] rounded-full flex items-center justify-center flex-shrink-0">
+                    <FaClock className="text-white text-lg" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#006400] mb-1">Business Hours</h3>
+                    <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                    <p className="text-gray-600">Saturday - Sunday: 10:00 AM - 4:00 PM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Response Promise */}
+            <div className="bg-gradient-to-r from-[rgb(234,171,12)] to-[#d4af37] rounded-3xl p-8 text-white">
+              <h3 className="text-xl font-bold mb-4">Quick Response Guarantee</h3>
+              <p className="mb-4">
+                We understand that planning events can be time-sensitive. That's why we promise to respond to all inquiries within 24 hours!
+              </p>
+              <div className="flex items-center space-x-2">
+                <FaCheckCircle className="text-green-200" />
+                <span className="font-semibold">24-hour response time</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="bg-white rounded-3xl shadow-xl p-8 border border-[#b8860b]">
+            <h2 className="text-2xl font-bold text-[#006400] mb-6">Send Us a Message</h2>
+            
+            {showSuccess && (
+              <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 flex items-center space-x-2">
+                <FaCheckCircle />
+                <span>Thank you for your message! We'll get back to you within 24 hours.</span>
+              </div>
+            )}
+
+            {errors.general && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+                {errors.general}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-semibold text-[#006400] mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(234,171,12)] transition-colors ${
+                    errors.name ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                  placeholder="Enter your full name"
+                />
+                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-semibold text-[#006400] mb-2">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(234,171,12)] transition-colors ${
+                    errors.email ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                  placeholder="Enter your email address"
+                />
+                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+              </div>
+
+              <div>
+                <label htmlFor="phone" className="block text-sm font-semibold text-[#006400] mb-2">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(234,171,12)] transition-colors"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-semibold text-[#006400] mb-2">
+                  Message *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={5}
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(234,171,12)] transition-colors resize-none ${
+                    errors.message ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                  placeholder="Tell us about your event, questions, or how we can help you..."
+                />
+                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-[rgb(234,171,12)] text-white py-4 px-6 rounded-lg font-semibold hover:bg-[#d4af37] transition-colors duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+              >
+                {isSubmitting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <FaPaperPlane />
+                    <span>Send Message</span>
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -6,9 +6,9 @@
  * Initialize Google Analytics
  */
 export const initializeAnalytics = () => {
-  const trackingId = process.env.REACT_APP_GA_TRACKING_ID;
-  
-  if (!trackingId || process.env.NODE_ENV !== 'production') {
+  const trackingId = import.meta.env.VITE_GA_TRACKING_ID;
+
+  if (!trackingId || import.meta.env.MODE !== 'production') {
     console.log('Analytics not initialized - missing tracking ID or not in production');
     return;
   }
@@ -50,7 +50,7 @@ export const trackPageView = (path, title) => {
     page_path: path,
   };
 
-  window.gtag('config', process.env.REACT_APP_GA_TRACKING_ID, pageViewData);
+  window.gtag('config', import.meta.env.VITE_GA_TRACKING_ID, pageViewData);
   console.log('Page view tracked:', path);
 };
 
@@ -204,7 +204,7 @@ export const trackException = (description, fatal = false) => {
 export const setUserProperty = (property, value) => {
   if (typeof window.gtag !== 'function') return;
 
-  window.gtag('config', process.env.REACT_APP_GA_TRACKING_ID, {
+  window.gtag('config', import.meta.env.VITE_GA_TRACKING_ID, {
     custom_map: { [property]: value },
   });
 };

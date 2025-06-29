@@ -42,34 +42,33 @@ const OptimizedImage = ({
     return () => observer.disconnect();
   }, [lazy, isInView]);
 
-  // Generate responsive image sources
+  // For now, just use the original image since we don't have responsive variants
   const generateSrcSet = (baseSrc) => {
-    if (!baseSrc) return '';
-    
-    const extension = baseSrc.split('.').pop();
-    const baseName = baseSrc.replace(`.${extension}`, '');
-    
-    // Generate different sizes (you would need to create these variants)
-    const sizes = [400, 800, 1200, 1600];
-    return sizes
-      .map(size => `${baseName}_${size}w.${extension} ${size}w`)
-      .join(', ');
+    return baseSrc; // Return original image
   };
 
-  // Generate WebP source if supported
+  // Check if WebP version exists, otherwise skip
   const generateWebPSrc = (baseSrc) => {
     if (!baseSrc) return '';
     const extension = baseSrc.split('.').pop();
-    return baseSrc.replace(`.${extension}`, '.webp');
+    const webpSrc = baseSrc.replace(`.${extension}`, '.webp');
+    // Only return WebP if it's likely to exist (for now, skip WebP)
+    return null; // Disable WebP for now
   };
 
   const handleLoad = () => {
     setIsLoaded(true);
+    if (import.meta.env.MODE === 'development') {
+      console.log('✅ Image loaded:', src);
+    }
   };
 
-  const handleError = () => {
+  const handleError = (e) => {
     setError(true);
     setIsLoaded(true);
+    if (import.meta.env.MODE === 'development') {
+      console.error('❌ Image failed to load:', src, e);
+    }
   };
 
   if (error) {
@@ -109,31 +108,19 @@ const OptimizedImage = ({
 
       {/* Actual image */}
       {isInView && (
-        <picture>
-          {/* WebP source for modern browsers */}
-          <source
-            srcSet={generateWebPSrc(src)}
-            type="image/webp"
-            sizes={sizes}
-          />
-          
-          {/* Fallback image */}
-          <img
-            src={src}
-            srcSet={generateSrcSet(src)}
-            alt={alt}
-            width={width}
-            height={height}
-            sizes={sizes}
-            loading={lazy ? 'lazy' : 'eager'}
-            onLoad={handleLoad}
-            onError={handleError}
-            className={`transition-opacity duration-300 ${
-              isLoaded ? 'opacity-100' : 'opacity-0'
-            } ${className}`}
-            {...props}
-          />
-        </picture>
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={lazy ? 'lazy' : 'eager'}
+          onLoad={handleLoad}
+          onError={handleError}
+          className={`transition-opacity duration-300 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          } ${className}`}
+          {...props}
+        />
       )}
     </div>
   );

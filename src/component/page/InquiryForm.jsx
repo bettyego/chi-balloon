@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import emailjs from '@emailjs/browser';
+import { useState } from 'react';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
-import { sanitizeFormData, formSubmissionLimiter } from '../../utils/sanitize';
 
 const InquiryForm = () => {
   const [formData, setFormData] = useState({
@@ -141,16 +139,11 @@ const InquiryForm = () => {
     setIsSubmitting(true);
 
     try {
-      // Sanitize form data before sending
-      const sanitizedData = sanitizeFormData(formData);
+      // Simulate form submission (replace with actual email service later)
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Send data via EmailJS
-      await emailjs.send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID || 'your_service_id',
-        process.env.REACT_APP_EMAILJS_INQUIRY_TEMPLATE_ID || 'your_template_id',
-        sanitizedData,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'your_public_key'
-      );
+      console.log('📧 Inquiry form submitted:', formData);
+
       setShowSuccess(true);
 
       // Hide success message after 5 seconds

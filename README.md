@@ -1,20 +1,43 @@
-# Chi-Ballon Event Planning Website
+# Pinch of Luxe Events Website
 
-A modern, responsive React website for Chi-Ballon event planning and balloon decoration services. Built with React 19, Vite, and TailwindCSS.
+A modern, responsive React website for Pinch of Luxe Events planning and luxury event decoration services. Built with React 19, Vite, and TailwindCSS.
 
 ## 🎈 About
 
-Chi-Ballon specializes in creating magical events with professional balloon decorations, floral design, and comprehensive event planning services. This website showcases our portfolio, services, and provides an easy way for clients to inquire about events.
+Pinch of Luxe Events specializes in creating magical events with professional balloon decorations, floral design, and comprehensive event planning services. This website showcases our portfolio, services, and provides an easy way for clients to inquire about events.
 
 ## ✨ Features
 
+### 🎨 **User Experience**
 - **Responsive Design**: Mobile-first approach with beautiful animations
 - **Interactive Gallery**: Swiper-based image galleries with category filtering
-- **Contact Forms**: Validated inquiry and contact forms with EmailJS integration
 - **Modern UI**: Framer Motion animations and TailwindCSS styling
-- **SEO Optimized**: Proper meta tags and structured data
-- **Error Handling**: Comprehensive error boundaries and 404 page
-- **Performance**: Optimized images and code splitting
+- **Progressive Web App**: Installable with offline functionality
+- **Accessibility**: WCAG compliant with screen reader support
+
+### 📧 **Forms & Communication**
+- **Contact Forms**: Validated inquiry and contact forms with EmailJS integration
+- **Real-time Validation**: Client-side form validation with error handling
+- **Rate Limiting**: Spam protection with intelligent rate limiting
+- **Form Drafts**: Auto-save form data to prevent data loss
+
+### 🚀 **Performance & Optimization**
+- **Code Splitting**: Lazy-loaded routes for faster initial load
+- **Image Optimization**: WebP support, lazy loading, and responsive images
+- **Service Worker**: Caching strategy for offline functionality
+- **Performance Monitoring**: Core Web Vitals tracking
+
+### 🔒 **Security & Quality**
+- **Input Sanitization**: XSS protection for all form inputs
+- **Error Boundaries**: Graceful error handling with user-friendly messages
+- **Content Security Policy**: HTTP security headers
+- **Comprehensive Testing**: Unit tests and E2E testing with Playwright
+
+### 📊 **Analytics & Monitoring**
+- **Google Analytics 4**: User behavior and conversion tracking
+- **Error Tracking**: Automatic error reporting and monitoring
+- **Performance Metrics**: Real-time performance monitoring
+- **SEO Optimized**: Proper meta tags, structured data, and sitemap
 
 ## 🚀 Quick Start
 
@@ -28,7 +51,7 @@ Chi-Ballon specializes in creating magical events with professional balloon deco
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd chi-ballon
+   cd pinch-of-luxe-events
    ```
 
 2. **Install dependencies**

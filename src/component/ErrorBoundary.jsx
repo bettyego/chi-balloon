@@ -1,4 +1,5 @@
 import React from 'react';
+import { trackException } from '../utils/analytics';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -14,7 +15,14 @@ class ErrorBoundary extends React.Component {
   componentDidCatch(error, errorInfo) {
     // Log the error to console or error reporting service
     console.error('Error caught by boundary:', error, errorInfo);
-    
+
+    // Track error in analytics
+    try {
+      trackException(`${error.name}: ${error.message}`, true);
+    } catch (analyticsError) {
+      console.warn('Failed to track error:', analyticsError);
+    }
+
     this.setState({
       error: error,
       errorInfo: errorInfo

@@ -62,7 +62,14 @@ const Header = () => {
           </nav>
 
           {/* Desktop CTA Button */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center space-x-3">
+            <Link
+              to="/admin"
+              className="text-xs text-gray-500 hover:text-[#b8860b] transition"
+              title="Admin Access"
+            >
+              🔐
+            </Link>
             <Link
               to="/inquiryform"
               className=" bg-[#d4af37] text-white px-5 py-2 rounded-full hover:bg-green-800 transition duration-300 text-sm sm:text-base"
