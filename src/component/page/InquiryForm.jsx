@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
+import { useFormSubmission } from '../../hooks/useApi';
+import apiService from '../../services/api';
 
 const InquiryForm = () => {
   const [formData, setFormData] = useState({
@@ -22,9 +24,10 @@ const InquiryForm = () => {
     referral: '',
   });
 
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+
+  // Use the backend API hook
+  const { isSubmitting, submitError, submitSuccess, submitForm, resetForm } = useFormSubmission();
 
   // Country select options (using react-select-country-list)
   const countries = countryList().getData();
@@ -136,19 +139,17 @@ const InquiryForm = () => {
       return;
     }
 
-    setIsSubmitting(true);
+    // Submit to backend API
+    const response = await submitForm(apiService.submitInquiryForm, {
+      ...formData,
+      submittedAt: new Date().toISOString(),
+      source: 'website'
+    });
 
-    try {
-      // Simulate form submission (replace with actual email service later)
-      await new Promise(resolve => setTimeout(resolve, 1000));
+    if (response.success) {
+      console.log('✅ Inquiry form submitted successfully:', response.data);
 
-      console.log('📧 Inquiry form submitted:', formData);
-
-      setShowSuccess(true);
-
-      // Hide success message after 5 seconds
-      setTimeout(() => setShowSuccess(false), 5000);
-      // Clear form data
+      // Reset form on success
       setFormData({
         firstName: '',
         lastName: '',
@@ -167,12 +168,16 @@ const InquiryForm = () => {
         pricingGuide: false,
         referral: '',
       });
-    } catch (error) {
-      alert('There was an issue sending your inquiry. Please try again.');
-      console.error(error);
-    }
+      setErrors({});
 
-    setIsSubmitting(false);
+      // Reset form status after 5 seconds
+      setTimeout(() => resetForm(), 5000);
+    } else {
+      console.error('❌ Inquiry form submission failed:', response.error);
+      setErrors({
+        general: response.error || 'Failed to send inquiry. Please try again or contact us directly.'
+      });
+    }
   };
 
   return (
@@ -401,9 +406,21 @@ const InquiryForm = () => {
         </div>
       </form>
 
-      {showSuccess && (
-        <div className="mt-8 text-center text-green-600 font-semibold">
-          Your inquiry has been sent successfully! We will get back to you shortly.
+      {submitSuccess && (
+        <div className="mt-8 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center">
+          <div className="flex items-center justify-center space-x-2">
+            <span className="text-green-600">✅</span>
+            <span className="font-semibold">Your inquiry has been sent successfully! We will get back to you shortly.</span>
+          </div>
+        </div>
+      )}
+
+      {(submitError || errors.general) && (
+        <div className="mt-8 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center">
+          <div className="flex items-center justify-center space-x-2">
+            <span className="text-red-600">❌</span>
+            <span>{submitError || errors.general}</span>
+          </div>
         </div>
       )}
     </div>

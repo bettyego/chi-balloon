@@ -39,7 +39,20 @@ export default defineConfig({
     hmr: {
       overlay: true
     },
-    force: true
+    force: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '/api')
+      },
+      '/health': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
   build: {
     rollupOptions: {

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAdminData } from '../../hooks/useApi';
+import apiService from '../../services/api';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

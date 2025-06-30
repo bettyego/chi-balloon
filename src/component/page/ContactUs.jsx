@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
+import { useFormSubmission } from '../../hooks/useApi';
+import apiService from '../../services/api';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -8,9 +10,10 @@ const ContactUs = () => {
     phone: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
   const [errors, setErrors] = useState({});
+
+  // Use the backend API hook
+  const { isSubmitting, submitError, submitSuccess, submitForm, resetForm } = useFormSubmission();
 
   const validateForm = () => {
     const newErrors = {};
@@ -51,32 +54,32 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
 
-    setIsSubmitting(true);
+    // Submit to backend API
+    const response = await submitForm(apiService.submitContactForm, {
+      ...formData,
+      submittedAt: new Date().toISOString(),
+      source: 'website'
+    });
 
-    try {
-      // Simulate form submission (replace with actual email service later)
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      console.log('📧 Contact form submitted:', formData);
-      
-      setShowSuccess(true);
+    if (response.success) {
+      console.log('✅ Contact form submitted successfully:', response.data);
+
+      // Reset form on success
       setFormData({ name: '', email: '', phone: '', message: '' });
-      
-      // Hide success message after 5 seconds
-      setTimeout(() => setShowSuccess(false), 5000);
-      
-    } catch (error) {
-      console.error('Contact form submission failed:', error);
-      setErrors({ 
-        general: 'Failed to send message. Please try again or contact us directly.' 
+      setErrors({});
+
+      // Reset form status after 5 seconds
+      setTimeout(() => resetForm(), 5000);
+    } else {
+      console.error('❌ Contact form submission failed:', response.error);
+      setErrors({
+        general: response.error || 'Failed to send message. Please try again or contact us directly.'
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -164,16 +167,16 @@ const ContactUs = () => {
           <div className="bg-white rounded-3xl shadow-xl p-8 border border-[#b8860b]">
             <h2 className="text-2xl font-bold text-[#006400] mb-6">Send Us a Message</h2>
             
-            {showSuccess && (
+            {submitSuccess && (
               <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 flex items-center space-x-2">
                 <FaCheckCircle />
                 <span>Thank you for your message! We'll get back to you within 24 hours.</span>
               </div>
             )}
 
-            {errors.general && (
+            {(submitError || errors.general) && (
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
-                {errors.general}
+                {submitError || errors.general}
               </div>
             )}
 
