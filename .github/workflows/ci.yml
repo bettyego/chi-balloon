@@ -167,4 +167,4 @@ jobs:
       if: success()
       run: |
         echo "🚀 Production deployment successful!"
-        echo "Site URL: https://chi-ballon.vercel.app"
+        echo "Site URL: https://pinch-of-luxe-events.vercel.app"

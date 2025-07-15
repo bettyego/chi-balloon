@@ -76,16 +76,16 @@ export const ROUTES = {
 
 // Social Media Links
 export const SOCIAL_LINKS = {
-  facebook: 'https://facebook.com/chiballon',
-  instagram: 'https://instagram.com/chiballon',
-  twitter: 'https://twitter.com/chiballon',
-  linkedin: 'https://linkedin.com/company/chiballon',
-  youtube: 'https://youtube.com/chiballon',
+  facebook: 'https://facebook.com/pinchofluxeevents',
+  instagram: 'https://instagram.com/pinchofluxeevents',
+  twitter: 'https://twitter.com/pinchofluxeevents',
+  linkedin: 'https://linkedin.com/company/pinchofluxeevents',
+  youtube: 'https://youtube.com/pinchofluxeevents',
 };
 
 // Contact Information
 export const CONTACT_INFO = {
-  email: 'info@chiballon.com',
+  email: 'info@pinchofluxeevents.com',
   phone: '+1 (555) 123-4567',
   address: {
     street: '123 Event Street',
@@ -103,9 +103,9 @@ export const CONTACT_INFO = {
 
 // SEO Configuration
 export const SEO = {
-  defaultTitle: 'Chi-Ballon | Professional Event Planning & Balloon Decorations',
-  titleTemplate: '%s | Chi-Ballon Events',
-  defaultDescription: 'Transform your special events with Chi-Ballon\'s professional balloon decorations, floral design, and comprehensive event planning services.',
+  defaultTitle: 'Pinch of Luxe Events | Professional Event Planning & Balloon Decorations',
+  titleTemplate: '%s | Pinch of Luxe Events',
+  defaultDescription: 'Transform your special events with Pinch of Luxe Events\'s professional balloon decorations, floral design, and comprehensive event planning services.',
   keywords: [
     'balloon decorations',
     'event planning',
@@ -116,8 +116,8 @@ export const SEO = {
     'balloon arch',
     'event design',
   ],
-  author: 'Chi-Ballon Events',
-  siteUrl: 'https://chi-ballon.com',
+  author: 'Pinch of Luxe Events',
+  siteUrl: 'https://pinchofluxeevents.com',
   image: '/chi.jpg',
 };
 

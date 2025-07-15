@@ -10,7 +10,7 @@ const reviews = [
   {
     id: 1,
     author: 'Jessica A.',
-    content: "ChiBalloonArt made my baby shower magical! The balloon arch and color scheme were stunning. Guests couldn't stop taking pictures.",
+    content: "Pinch of Luxe Events made my baby shower magical! The balloon arch and color scheme were stunning. Guests couldn't stop taking pictures.",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const reviews = [
   {
     id: 3,
     author: 'Sarah K.',
-    content: "My daughter’s birthday party was a dream come true thanks to ChiBalloonArt. The custom balloon wall was the highlight of the day.",
+    content: "My daughter’s birthday party was a dream come true thanks to Pinch of Luxe Events. The custom balloon wall was the highlight of the day.",
   },
   {
     id: 4,
@@ -30,7 +30,7 @@ const reviews = [
   {
     id: 5,
     author: 'David L.',
-    content: "ChiBalloonArt exceeded our expectations. They delivered on time and created a memorable celebration for our family.",
+    content: "Pinch of Luxe Events exceeded our expectations. They delivered on time and created a memorable celebration for our family.",
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ const reviews = [
   {
     id: 8,
     author: 'Olivia M.',
-    content: "My daughter’s birthday party was a dream come true thanks to ChiBalloonArt. The custom balloon wall was the highlight of the day.",
+    content: "My daughter’s birthday party was a dream come true thanks to Pinch of Luxe Events. The custom balloon wall was the highlight of the day.",
   },
   {
     id: 9,
@@ -55,7 +55,7 @@ const reviews = [
   {
     id: 10,
     author: 'Sophia C.',
-    content: "ChiBalloonArt exceeded our expectations. They delivered on time and created a memorable celebration for our family.",
+    content: "Pinch of Luxe Events exceeded our expectations. They delivered on time and created a memorable celebration for our family.",
   },
 ];
 

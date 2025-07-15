@@ -63,7 +63,7 @@ const AboutUs = () => {
 
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#006400] via-[#d4af37] to-[#006400] mb-6">
+            <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#006400] via-[#d4af37] to-[#006400] mb-6 font-heading">
               About Pinch of Luxe Events
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">

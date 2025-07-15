@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* Base styles */
+:root {
+  --font-body: 'Lora', serif;
+  --font-heading: 'Playfair Display', serif;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+}
+
 /* Custom animations for Footer */
 @keyframes float {
   0%, 100% {
@@ -107,4 +122,12 @@ select:focus {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }

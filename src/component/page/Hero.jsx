@@ -144,7 +144,7 @@ const Hero = React.memo(() => {
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight max-w-3xl drop-shadow-xl"
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight max-w-3xl drop-shadow-xl font-heading"
             >
               {currentSlide.title}
             </motion.h1>

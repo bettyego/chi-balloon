@@ -7,7 +7,7 @@ test.describe('Homepage', () => {
 
   test('should load homepage successfully', async ({ page }) => {
     // Check if the page loads
-    await expect(page).toHaveTitle(/Chi-Ballon/);
+    await expect(page).toHaveTitle(/Pinch of Luxe Events/);
     
     // Check for main navigation
     await expect(page.getByRole('navigation')).toBeVisible();
