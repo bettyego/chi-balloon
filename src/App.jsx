@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./component/page/Layout";
-import Home from "./component/Home";
+import Home from "./component/page/Home";
 import AboutUs from "./component/page/AboutUs";
 import Services from "./component/page/Services";
 import InquiryForm from "./component/page/InquiryForm";
@@ -10,14 +10,9 @@ import Gallery from "./component/page/Gallery";
 import ContactUs from "./component/page/ContactUs";
 import Admin from "./component/page/Admin";
 import NotFound from "./component/page/NotFound";
-import BackendStatus from "./components/BackendStatus";
-import ApiTest from "./components/ApiTest";
-
 function App() {
   return (
     <>
-      <BackendStatus />
-      <ApiTest />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />

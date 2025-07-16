@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Dashboard from './Dashboard';
 import { useAdminData } from '../../hooks/useApi';
 import apiService from '../../services/api';
 
@@ -7,6 +8,10 @@ const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginData, setLoginData] = useState({ username: '', password: '' });
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('Weddings');
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [inquiries, setInquiries] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -437,6 +442,100 @@ const Admin = () => {
 
   // Admin Dashboard
   const stats = getStats();
+  
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-semibold text-gray-900">Admin Dashboard</h1>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg"
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+
+      {/* Navigation Tabs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex space-x-4 border-b">
+          <button
+            onClick={() => setActiveTab('dashboard')}
+            className={`px-4 py-2 ${
+              activeTab === 'dashboard'
+                ? 'border-b-2 border-green-500 text-green-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Dashboard
+          </button>
+          <button
+            onClick={() => setActiveTab('inquiries')}
+            className={`px-4 py-2 ${
+              activeTab === 'inquiries'
+                ? 'border-b-2 border-green-500 text-green-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Inquiries
+          </button>
+          <button
+            onClick={() => setActiveTab('contacts')}
+            className={`px-4 py-2 ${
+              activeTab === 'contacts'
+                ? 'border-b-2 border-green-500 text-green-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Contacts
+          </button>
+          <button
+            onClick={() => setActiveTab('gallery')}
+            className={`px-4 py-2 ${
+              activeTab === 'gallery'
+                ? 'border-b-2 border-green-500 text-green-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Gallery
+          </button>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {activeTab === 'dashboard' && <Dashboard stats={stats} />}
+        {activeTab === 'inquiries' && <InquiriesTab />}
+        {activeTab === 'contacts' && <ContactsTab />}
+        {activeTab === 'gallery' && <GalleryManagement />}
+      </main>
+
+      {/* Modals */}
+      {uploadModalOpen && <UploadModal />}
+      {showDeleteModal && <DeleteConfirmationModal />}
+      {showDetailModal && <DetailModal />}
+
+      {/* Notification */}
+      {notification && (
+        <div
+          className={`fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg ${
+            notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'
+          } text-white`}
+        >
+          {notification.message}
+        </div>
+      )}
+
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -594,7 +693,8 @@ const Admin = () => {
               { id: 'dashboard', name: 'Dashboard', icon: '📊' },
               { id: 'inquiries', name: 'Event Inquiries', icon: '📝' },
               { id: 'contacts', name: 'Contact Messages', icon: '💬' },
-              { id: 'analytics', name: 'Analytics', icon: '📈' }
+              { id: 'analytics', name: 'Analytics', icon: '📈' },
+              { id: 'gallery', name: 'Gallery Management', icon: '🖼️' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -1170,7 +1270,144 @@ const Admin = () => {
             </div>
           </div>
         )}
+
+        {/* Gallery Management */}
+        {activeTab === 'gallery' && (
+          <div className="space-y-6">
+            {/* Gallery Upload Section */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Upload New Images</h3>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
+                <div className="flex-1">
+                  <input
+                    type="file"
+                    multiple
+                    onChange={handleFileSelect}
+                    className="hidden"
+                    id="file-upload"
+                  />
+                  <label
+                    htmlFor="file-upload"
+                    className="flex items-center justify-center h-12 px-4 bg-[#006400] text-white rounded-lg cursor-pointer hover:bg-[#004d00] transition-colors"
+                  >
+                    {selectedFiles.length > 0
+                      ? `${selectedFiles.length} file(s) selected`
+                      : 'Select Images'}
+                  </label>
+                </div>
+                <button
+                  onClick={handleUpload}
+                  className="mt-4 sm:mt-0 h-12 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Upload Images
+                </button>
+              </div>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Select Category
+                </label>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006400]"
+                >
+                  <option value="Weddings">Weddings</option>
+                  <option value="Birthdays">Birthdays</option>
+                  <option value="Corporate Events">Corporate Events</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Gallery Images Display */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Gallery Images</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {galleryImages.map((image) => (
+                  <div key={image.id} className="relative group">
+                    <img
+                      src={image.url}
+                      alt={image.name}
+                      className="w-full h-32 object-cover rounded-lg"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        onClick={() => deleteImage(image.id)}
+                        className="text-white text-sm font-semibold px-3 py-1 rounded-lg bg-red-600 hover:bg-red-700 transition-colors"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {galleryImages.length === 0 && (
+                <div className="text-center py-12">
+                  <div className="text-4xl mb-4">📸</div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No images in gallery</h3>
+                  <p className="text-gray-600">Upload images to display them here.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* Upload Modal */}
+      {uploadModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-8 max-w-md w-full">
+            <h3 className="text-2xl font-semibold mb-4">Upload Images</h3>
+            
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Category</label>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full p-2 border rounded-lg"
+              >
+                <option value="Weddings">Weddings</option>
+                <option value="Birthdays">Birthdays</option>
+                <option value="Baby Showers">Baby Showers</option>
+                <option value="Corporate Events">Corporate Events</option>
+                <option value="Kids">Kids</option>
+              </select>
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-sm font-medium mb-2">Select Images</label>
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleFileSelect}
+                className="w-full p-2 border rounded-lg"
+              />
+              {selectedFiles.length > 0 && (
+                <p className="text-sm text-gray-600 mt-2">
+                  {selectedFiles.length} files selected
+                </p>
+              )}
+            </div>
+
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={() => setUploadModalOpen(false)}
+                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleUpload}
+                disabled={selectedFiles.length === 0}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
+              >
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Custom CSS for animations */}
       <style jsx>{`
