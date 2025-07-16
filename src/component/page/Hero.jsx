@@ -11,15 +11,15 @@ const slides = [
     align: 'center',
   },
   {
-    image: '/chi4.jpg',
-    title: 'Luxury Balloon Installations',
-    text: 'From weddings to baby showers, we craft wow-worthy setups.',
+    image: '/w15.jpg',
+    title: 'Elegant Wedding Dreams',
+    text: 'Creating magical moments with luxurious wedding decor that takes your breath away.',
     align: 'left',
   },
   {
-    image: '/chi5.jpg',
-    title: 'Every Detail Matters',
-    text: 'We design each piece to reflect your vision & vibe.',
+    image: '/w3.jpg',
+    title: 'Timeless Wedding Backdrops',
+    text: 'Stunning designs that create the perfect setting for your dream wedding celebrations.',
     align: 'right',
   },
   {
@@ -29,7 +29,7 @@ const slides = [
     align: 'center',
   },
   {
-    image: '/chi9.jpg',
+    image: '/w.jpg',
     title: 'Let’s Make Magic',
     text: 'Your event deserves unforgettable magic touch — we are always ready.',
     align: 'center',
@@ -133,7 +133,10 @@ const Hero = React.memo(() => {
           className="absolute inset-0 z-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${currentSlide.image})` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent z-10" />
+          {/* Multiple overlays for better text contrast */}
+          <div className="absolute inset-0 bg-black opacity-20" /> {/* Lighter base overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent" /> {/* Lighter gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" /> {/* Lighter additional gradient */}
 
           <div
             className={`relative z-20 h-full flex flex-col justify-center px-6 sm:px-10 md:px-20 ${getAlignment(
@@ -144,7 +147,7 @@ const Hero = React.memo(() => {
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight max-w-3xl drop-shadow-xl font-heading"
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight max-w-3xl drop-shadow-2xl font-heading text-shadow-lg"
             >
               {currentSlide.title}
             </motion.h1>
@@ -153,7 +156,7 @@ const Hero = React.memo(() => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-lg sm:text-xl text-gray-200 mt-4 max-w-xl drop-shadow-md"
+              className="text-lg sm:text-xl text-white mt-4 max-w-xl drop-shadow-2xl text-shadow-md font-medium"
             >
               {currentSlide.text}
             </motion.p>
@@ -166,7 +169,7 @@ const Hero = React.memo(() => {
             >
               <Link to="/inquiryform">
                 <button className="px-7 py-3 bg-[#b8860b] hover:bg-green-800 text-white rounded-full text-base font-semibold shadow-lg transition duration-300">
-                  Let’s Create Magic
+                 Because Luxury Is in the Details
                 </button>
               </Link>
             </motion.div>

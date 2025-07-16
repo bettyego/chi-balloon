@@ -8,7 +8,7 @@ const galleryData = {
   Weddings: ['/w.jpg','/w15.jpg','/w1.jpg','/w2.jpg','/w3.jpg','/w4.jpg','/w5.jpg','/w6.jpg','/w7.jpg','/w8.jpg','/w9.jpg','/w10.jpg','/w11.jpg','/w12.jpg','/w13.jpg','/w14.jpg','/chi15.jpg', '/chi43.jpg', '/chi25.jpg', '/chi40.jpg', '/chi11.jpg', ],
   Birthdays: ['/chi2.jpg', '/chi6.jpg', '/chi17.jpg', '/chi16.jpg', '/chi40.jpg', '/chi10.jpg', '/chi14.jpg', '/chi41.jpg', '/chi42.jpg', '/chi24.jpg', '/chi26.jpg', '/chi30.jpg', '/chi3.jpg'],
   'Baby Showers': ['/chi32.jpg', '/chi31.jpg', '/chi8.jpg', '/chi28.jpg', '/chi29.jpg'],
-  'Corporate Events': ['/MORI2202_8Zw.jpg','/chi4.jpg', '/chi13.jpg', '/chi22.jpg', '/chi27.jpg'],
+  'Corporate Events': ['/IMG_4418.jpeg', '/IMG_4419.jpeg', '/IMG_4420.jpeg', '/IMG_4421.jpeg', '/IMG_4422.jpeg', '/IMG_4423.jpeg', '/IMG_4426.jpeg', '/IMG_4427.jpeg', '/IMG_4431.jpeg', '/IMG_4432.jpeg', '/IMG_4433.jpeg', '/IMG_4435.jpeg', '/IMG_4436.jpeg'],
   Kids: ['/chi30.jpg', '/chi34.jpg', '/chi39.jpg', '/chi37.jpg', '/chi44.jpg', '/chi31.jpg', '/chi24.jpg', '/chi35.jpg', '/chi38.jpg', '/chi7.jpg'],
 };
 
@@ -113,6 +113,23 @@ const Gallery = React.memo(() => {
   const [activeCategory, setActiveCategory] = useState('Weddings');
   const [activeView, setActiveView] = useState('photos'); // 'photos' or 'videos'
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [scale, setScale] = useState(1);
+  
+  const handleZoomIn = (e) => {
+    e.stopPropagation();
+    setScale(prev => Math.min(prev + 0.5, 3));
+  };
+  
+  const handleZoomOut = (e) => {
+    e.stopPropagation();
+    setScale(prev => Math.max(prev - 0.5, 1));
+  };
+  
+  const handleReset = (e) => {
+    e.stopPropagation();
+    setScale(1);
+  };
 
   const categoryButtons = useMemo(() =>
     Object.keys(galleryData).map((category) => (
@@ -188,8 +205,9 @@ const Gallery = React.memo(() => {
                   <img
                     src={img}
                     alt={`${activeCategory} event ${index + 1}`}
-                    className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500"
+                    className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500 cursor-pointer"
                     loading="lazy"
+                    onClick={() => setSelectedImage(img)}
                     onError={(e) => {
                       e.currentTarget.style.opacity = '0.5';
                       console.error(`❌ Could not load: ${img}`);
@@ -322,6 +340,55 @@ const Gallery = React.memo(() => {
                 <div className="bg-[#fef9ec] rounded-2xl p-4">
                   <p className="text-gray-700 leading-relaxed">{selectedVideo.description}</p>
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Full Screen Image Modal */}
+        {selectedImage && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4 animate-fadeIn"
+            onClick={() => {
+              setSelectedImage(null);
+              setScale(1);
+            }}
+          >
+            <div className="relative w-full h-full flex items-center justify-center">
+              <div className="absolute top-4 right-4 flex gap-2">
+                <button
+                  onClick={handleZoomOut}
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors z-10 text-white text-xl"
+                >
+                  -
+                </button>
+                <button
+                  onClick={handleZoomIn}
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors z-10 text-white text-xl"
+                >
+                  +
+                </button>
+                <button
+                  onClick={(e) => {
+                    setSelectedImage(null);
+                    setScale(1);
+                  }}
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors z-10 text-white"
+                >
+                  ✕
+                </button>
+              </div>
+              <div 
+                className="max-w-[90vw] max-h-[85vh] overflow-auto"
+                onDoubleClick={handleReset}
+              >
+                <img
+                  src={selectedImage}
+                  alt="Full size view"
+                  className="max-w-full max-h-[85vh] object-contain rounded-lg transition-transform duration-200 cursor-zoom-in"
+                  style={{ transform: `scale(${scale})` }}
+                  onClick={(e) => e.stopPropagation()}
+                />
               </div>
             </div>
           </div>
