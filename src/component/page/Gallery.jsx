@@ -4,6 +4,14 @@ import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+const styleClasses = {
+  mainTitle: "elegant-heading text-4xl md:text-5xl text-center text-[#006400] mb-6",
+  categoryTitle: "elegant-subheading text-2xl md:text-3xl mb-4",
+  description: "elegant-body text-gray-600 text-center max-w-3xl mx-auto mb-12",
+  button: "elegant-button px-6 py-2 rounded-full transition-all duration-300",
+  categoryButton: "elegant-button text-sm md:text-base px-4 py-2 rounded-full transition-all duration-300"
+};
+
 const galleryData = {
   Weddings: ['/w.jpg','/w15.jpg','/w1.jpg','/w2.jpg','/w3.jpg','/w4.jpg','/w5.jpg','/w6.jpg','/w7.jpg','/w8.jpg','/w9.jpg','/w10.jpg','/w11.jpg','/w12.jpg','/w13.jpg','/w14.jpg','/chi15.jpg', '/chi43.jpg', '/chi25.jpg', '/chi40.jpg', '/chi11.jpg', ],
   Birthdays: ['/chi2.jpg', '/chi6.jpg', '/chi17.jpg', '/chi16.jpg', '/chi40.jpg', '/chi10.jpg', '/chi14.jpg', '/chi41.jpg', '/chi42.jpg', '/chi24.jpg', '/chi26.jpg', '/chi30.jpg', '/chi3.jpg'],
@@ -159,12 +167,13 @@ const Gallery = React.memo(() => {
   }), []);
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-white to-[#fef9ec] py-16 px-6 mt-12">
+    <div className="min-h-screen bg-gradient-to-b from-white via-[#fef9ec] to-white py-20 px-6">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-[rgb(234,171,12)] mb-14">
-          Our Event Gallery
-        </h2>
-
+        <h1 className={styleClasses.mainTitle}>Our Gallery</h1>
+        <p className={styleClasses.description}>
+          Explore our collection of magical moments and elegant celebrations
+        </p>
+        
         {/* View Toggle Buttons */}
         <div className="flex justify-center mb-8">
           <div className="bg-white rounded-full p-2 shadow-lg border border-[#b8860b]">
@@ -412,7 +421,7 @@ const Gallery = React.memo(() => {
           }
         `}</style>
       </div>
-    </section>
+    </div>
   );
 });
 

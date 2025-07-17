@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSwipeable } from 'react-swipeable';
 
+const slideStyles = {
+  title: 'elegant-heading text-4xl md:text-6xl text-white mb-4 tracking-wide',
+  text: 'elegant-body text-lg md:text-xl text-white mb-8 max-w-2xl mx-auto',
+  button: 'elegant-button bg-[#d4af37] text-white px-8 py-4 rounded-full hover:bg-[#b8860b] transition-all duration-300 transform hover:scale-105',
+};
+
 const slides = [
   {
     image: '/chi43.jpg',
-    title: 'Celebrate in Style',
+    title: <>Celebrate <span className="elegant-accent">in Style</span></>,
     text: 'Transform your events with balloon magic, elegance, and flair.',
     align: 'center',
   },
@@ -147,7 +153,7 @@ const Hero = React.memo(() => {
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight max-w-3xl drop-shadow-2xl font-heading text-shadow-lg"
+              className={`${slideStyles.title} drop-shadow-2xl font-heading text-shadow-lg`}
             >
               {currentSlide.title}
             </motion.h1>
@@ -156,7 +162,7 @@ const Hero = React.memo(() => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-lg sm:text-xl text-white mt-4 max-w-xl drop-shadow-2xl text-shadow-md font-medium"
+              className={`${slideStyles.text} drop-shadow-2xl text-shadow-md font-medium`}
             >
               {currentSlide.text}
             </motion.p>
@@ -168,8 +174,8 @@ const Hero = React.memo(() => {
               className="mt-6"
             >
               <Link to="/inquiryform">
-                <button className="px-7 py-3 bg-[#b8860b] hover:bg-green-800 text-white rounded-full text-base font-semibold shadow-lg transition duration-300">
-                 Because Luxury Is in the Details
+                <button className={slideStyles.button}>
+                  Because Luxury Is in the Details
                 </button>
               </Link>
             </motion.div>
