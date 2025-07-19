@@ -127,7 +127,7 @@ const Header = () => {
             className="inline-block mt-4 bg-[#b8860b] px-4 py-2 rounded-full text-white hover:bg-green-800 transition focus:outline-none focus:ring-2 focus:ring-white"
             aria-label="Book an event inquiry"
           >
-            Book Now
+            Book Us Now
           </Link>
         </nav>
       )}
