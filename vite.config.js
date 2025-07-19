@@ -55,12 +55,29 @@ export default defineConfig({
     }
   },
   build: {
+    // Increase chunk size warning limit to 1000KB (1MB)
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         // Add hash to filenames for cache busting in production
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
+        assetFileNames: 'assets/[name].[hash].[ext]',
+        // Manual chunks for better code splitting
+        manualChunks: {
+          // Vendor libraries
+          vendor: ['react', 'react-dom'],
+          // Router and navigation
+          router: ['react-router-dom'],
+          // UI and animation libraries
+          ui: ['framer-motion', 'react-icons', 'sweetalert2'],
+          // Form and utility libraries
+          utils: ['react-select', 'react-swipeable', '@emailjs/browser'],
+          // Swiper library (large)
+          swiper: ['swiper'],
+          // Internationalization
+          i18n: ['i18next', 'react-i18next', 'i18next-browser-languagedetector']
+        }
       }
     }
   }
