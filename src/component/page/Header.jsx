@@ -74,7 +74,7 @@ const Header = () => {
               to="/inquiryform"
               className=" bg-[#d4af37] text-white px-5 py-2 rounded-full hover:bg-green-800 transition duration-300 text-sm sm:text-base"
             >
-              Book Now
+              Book Us Now
             </Link>
           </div>
 
