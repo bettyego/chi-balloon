@@ -7,8 +7,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Lora', 'serif'],
-        serif: ['Playfair Display', 'serif'],
+        sans: ['Crimson Text', 'serif'],
+        serif: ['Cormorant Garamond', 'serif'],
+        script: ['Dancing Script', 'cursive'],
       },
     },
   },

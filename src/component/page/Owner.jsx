@@ -49,7 +49,7 @@ const Owner = () => {
           </motion.h2>
 
           <motion.p
-            className="text-gray-800 mb-4 text-lg font-['Mulish'] font-light tracking-wide leading-relaxed"
+            className="text-gray-800 mb-4 text-lg font-['Crimson_Text'] font-light tracking-wide leading-relaxed"
             variants={paragraphVariants}
             custom={1}
           >
@@ -101,7 +101,7 @@ const Owner = () => {
           <h3 className="text-4xl md:text-5xl font-['Cormorant_Garamond'] font-light text-[#006400] mb-6 tracking-wider">
             Achievements & Milestones
           </h3>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto font-['Mulish'] font-light tracking-wide leading-relaxed">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto font-['Crimson_Text'] font-light tracking-wide leading-relaxed">
             A testament to dedication, creativity, and the pursuit of excellence in luxury event planning.
           </p>
         </motion.div>
@@ -145,7 +145,7 @@ const Owner = () => {
           <h3 className="text-4xl md:text-5xl font-['Cormorant_Garamond'] font-light text-[#006400] mb-6 tracking-wider">
             Core Values & Philosophy
           </h3>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-['Mulish'] font-light tracking-wide leading-relaxed">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-['Crimson_Text'] font-light tracking-wide leading-relaxed">
             The principles that guide every decision and inspire every creation at Pinch of Luxe Events.
           </p>
         </motion.div>
@@ -199,7 +199,7 @@ const Owner = () => {
           <h3 className="text-4xl md:text-5xl font-['Cormorant_Garamond'] font-light mb-6 tracking-wider">
             Ready to Create Magic Together?
           </h3>
-          <p className="text-xl mb-8 opacity-90 font-['Mulish'] font-light tracking-wide leading-relaxed">
+          <p className="text-xl mb-8 opacity-90 font-['Crimson_Text'] font-light tracking-wide leading-relaxed">
             Let Chinyere and her team bring your vision to life with a perfect pinch of luxury and elegance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
